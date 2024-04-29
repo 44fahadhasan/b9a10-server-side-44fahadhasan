@@ -32,6 +32,9 @@ async function run() {
     const database = client.db("b9a10-server-side-44fahadhasan");
     const craftItemsCollection = database.collection("CraftItems");
 
+    // Add Craft Item
+    const addCraftItem = database.collection("AddCraftItem");
+
     // get craft items all data this data create manually
     app.get("/craft-items", async (req, res) => {
       // Execute query all data
@@ -49,6 +52,16 @@ async function run() {
 
       // Execute query single data
       const result = await craftItemsCollection.findOne(query);
+      res.send(result);
+    });
+
+    // post data from add craft item
+    app.post("/add-craft-item", async (req, res) => {
+      const addCraftItemData = req.body;
+
+      // Insert the defined document into the "addCraftItem" collection
+      const result = await addCraftItem.insertOne(addCraftItemData);
+
       res.send(result);
     });
 
