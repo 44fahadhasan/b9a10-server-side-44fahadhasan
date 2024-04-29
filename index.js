@@ -28,6 +28,18 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
+    // Connect to the "b9a10-server-side-44fahadhasan" database and access its "CraftItems" collection
+    const database = client.db("b9a10-server-side-44fahadhasan");
+    const craftItemsCollection = database.collection("CraftItems");
+
+    // get craft items all data this data create manually
+    app.get("/craft-items", async (req, res) => {
+      // Execute query all data
+      const cursor = craftItemsCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
