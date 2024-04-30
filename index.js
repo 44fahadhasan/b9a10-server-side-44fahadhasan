@@ -73,6 +73,18 @@ async function run() {
       res.send(result);
     });
 
+    // get single data from add craft item collection based on id
+    app.get("/add-craft-item/:id", async (req, res) => {
+      const id = req.params.id;
+
+      // Query for a AddCraftItem that has the id
+      const query = { _id: new ObjectId(id) };
+
+      // Execute query id data
+      const result = await addCraftItem.findOne(query);
+      res.send(result);
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
