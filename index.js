@@ -65,6 +65,14 @@ async function run() {
       res.send(result);
     });
 
+    // get all data from addCraftItem collection
+    app.get("/add-craft-item", async (req, res) => {
+      // Execute query all data
+      const cursor = addCraftItem.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
