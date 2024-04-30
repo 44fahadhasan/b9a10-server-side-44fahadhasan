@@ -85,6 +85,37 @@ async function run() {
       res.send(result);
     });
 
+    // get single data from updated craft item collection based on id
+    app.put("/add-craft-item/:id", async (req, res) => {
+      const id = req.params.id;
+
+      const filter = { _id: new ObjectId(id) };
+
+      const options = { upsert: true };
+
+      const data = req.body;
+
+      const updateCraft = {
+        $set: {
+          userName: data.userName,
+          email: data.email,
+          craftName: data.craftName,
+          category: data.category,
+          imageurl: data.imageurl,
+          price: data.price,
+          rating: data.rating,
+          stockStatus: data.stockStatus,
+          customization: data.customization,
+          processingTime: data.processingTime,
+          description: data.description,
+        },
+      };
+
+      // Update the first document that matches the filter
+      const result = await addCraftItem.updateOne(filter, updateCraft, options);
+      res.send(result);
+    });
+
     // get single data delete from add craft item collection based on id
     app.delete("/add-craft-item/:id", async (req, res) => {
       const id = req.params.id;
